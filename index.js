@@ -30,7 +30,6 @@ bot.on('disconnect', function (errMsg, code) {
 
 bot.on('message', (user, userID, channelID, message, event)=>{
     if(userID == bot.id){
-        console.log(message)
         if(message.startsWith('.')){
             message = message.substr(1, message.length);
             var args = message.split(' ');
