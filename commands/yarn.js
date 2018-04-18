@@ -25,7 +25,7 @@ module.exports = {
 				});
 				bot.sendMessage({
 					to:channelID,
-					message: 'https://y.yarn.co/'+results[Math.floor(Math.random() * results.length)] + '_text_hi.gif'
+					message: 'https://y.yarn.co/'+results[0] + '_text_hi.gif'
 				}, ()=>{
 					results = [];
 				});
