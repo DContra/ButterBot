@@ -17,7 +17,7 @@ var bot = new Discord.Client({
     token: auth.token
 });
 
-bot.on('ready', (event)=>{
+bot.on('ready', (event) => {
     logger.info('Bot Connected');
     logger.info('Logged in as ' + bot.username + ' - (' + bot.id + ')');
 });
@@ -28,21 +28,38 @@ bot.on('disconnect', function (errMsg, code) {
     bot.connect()
 });
 
-bot.on('message', (user, userID, channelID, message, event)=>{
-    if(userID == bot.id){
-        if(message.startsWith('.')){
-            message = message.substr(1, message.length);
-            var args = message.split(' ');
-            var cmd = args[0].toLowerCase();
-            args.shift();
+bot.on('message', (user, userID, channelID, message, event) => {
+    if (message.startsWith('.')) {
+        message = message.substr(1, message.length);
+        var args = message.split(' ');
+        var cmd = args[0].toLowerCase();
+        args.shift();
+
+        //If the command being called is for the list of commands
+        if(cmd == 'commands'){
+            var post = [];
+            for(var key in Commands){
+                post.push(`**${key}**\nDescription: ${Commands[key].description}\nUsage: .${Commands[key].usage}`)
+            }
+            bot.sendMessage({
+                to:channelID,
+                embed: {
+                    color: 2,
+                    title: 'Heres a list of my Commands!',
+                    description:  post.join('\n')
+                  }
+            })
+        }
+        //Otherwise proceed as usual
+        else {
             //If this is the root command name
-            if(Commands[cmd] != undefined){
+            if (Commands[cmd] != undefined) {
                 Commands[cmd].execute(bot, user, userID, channelID, args, event);
             }
-            //Otherwise search for aliases
-            else{
-                for(var command in Commands){
-                    if(Commands[command].aliases.includes(cmd)){
+            //Otherwise search through each command for aliases
+            else {
+                for (var command in Commands) {
+                    if (Commands[command].aliases.includes(cmd)) {
                         Commands[command].execute(bot, user, userID, channelID, args, event);
                     }
                 }
@@ -52,9 +69,9 @@ bot.on('message', (user, userID, channelID, message, event)=>{
 });
 
 logger.info('Starting Bot');
-fs.readdir('./commands', (err,commands)=>{
+fs.readdir('./commands', (err, commands) => {
     if (err) throw err;
-    for (let i = 0; i < commands.length; i++){
+    for (let i = 0; i < commands.length; i++) {
         const command = require(path.join(__dirname, 'commands', commands[i]));
         Commands[command.command] = command;
     }

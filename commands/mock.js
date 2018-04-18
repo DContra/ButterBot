@@ -2,7 +2,7 @@ module.exports = {
 	command: 'mock',
 	aliases: [],
 	category: 'Fun',
-	description: 'Mock the last message sent in the channel in the form of the Spongebob Meme.',
+	description: 'Change text to the form of the Spongebob Meme.',
 	usage: 'mock <text>',
 	execute: (bot, user, userID, channelID, args, event) => {
 		bot.sendMessage({
