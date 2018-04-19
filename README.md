@@ -27,6 +27,7 @@ where `your bot token` is the token of your bot recieved by discord
 
 #### Running
 use `node index.js` to start the bot
+
 You should receive the following output
 ```
 info: Starting Bot
