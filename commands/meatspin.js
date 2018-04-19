@@ -13,7 +13,7 @@ module.exports = {
 	description: 'Just Find Out',
 	usage: 'meatspin',
 	execute: (bot, user, userID, channelID, args, event) => {
-		if(bot.channels[channelID].nsfw){
+		if(bot.channels[channelID].nsfw || bot.channels[channelID].name.includes('nsfw')){
 			bot.sendMessage({
 				to: channelID,
 				message: nsfw[Math.floor(Math.random() * nsfw.length)]
