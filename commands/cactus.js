@@ -1,9 +1,11 @@
 var cacti = [
-    'https://giphy.com/gifs/house-cactus-allison-3oEduItbzfD1Xmqhwc',
-    'https://giphy.com/gifs/animation-happy-l0HlHgiDgsW2c32p2',
-    'https://giphy.com/gifs/wS8OH0T4GKHIY',
-    'https://giphy.com/gifs/animation-art-food-l0IyebXezC6jXbyoM'
+    'https://media.giphy.com/media/3oEduItbzfD1Xmqhwc/giphy.gif',
+    'https://media.giphy.com/media/l0HlHgiDgsW2c32p2/giphy.gif',
+    'https://media.giphy.com/media/wS8OH0T4GKHIY/giphy.gif',
+    'https://media.giphy.com/media/l0IyebXezC6jXbyoM/giphy.gif'
 ]
+
+var embed = require('../styling/gif_embed.json');
 
 module.exports = {
 	command: 'cactus',
@@ -14,7 +16,13 @@ module.exports = {
 	execute: (bot, user, userID, channelID, args, event) => {
 		bot.sendMessage({
 			to: channelID,
-			message: cacti[Math.floor(Math.random() * cacti.length)]
+			embed:{
+				title: 'cactus',
+				color: embed.color,
+				image:{
+					url: cacti[Math.floor(Math.random() * cacti.length)]
+				}
+			}
 		})
 	}
 };

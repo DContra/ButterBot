@@ -1,5 +1,6 @@
 const rp = require('request-promise');
 const cheerio = require('cheerio');
+var embed = require('../styling/gif_embed.json');
 
 module.exports = {
 	command: 'yarn',
@@ -22,24 +23,27 @@ module.exports = {
 						results.push($(elem)['0'].attribs.href.substr(11, $(elem)['0'].attribs.href.length))
 					}
 				});
-				if(results.length != 0){
+				if (results.length != 0) {
 					bot.sendMessage({
-						to:channelID,
+						to: channelID,
 						embed: {
-							title: 'Yarn result for \"' + args.join(' ') + '\"',
+							title: `Yarn results for "${args.join(' ')}"`,
+							color: embed.color,
 							image: {
-								url: 'https://y.yarn.co/'+results[0] + '_text_hi.gif'
+								url: 'https://y.yarn.co/' + results[0] + '_text_hi.gif'
 							}
 						}
 					});
-				}
-				else{
+				} else {
 					bot.sendMessage({
-						to:channelID,
-						message: 'No results found in yarn for \"' + args.join(' ') + '\"',
+						to: channelID,
+						embed: {
+							description: `No yarn results found for "${args.join(' ')}" <@!${userID}>`,
+							color: embed.color
+						}
 					});
 				}
-				
+
 			})
 			.catch((err) => {
 				console.log(err);

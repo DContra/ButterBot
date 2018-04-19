@@ -1,11 +1,15 @@
+var embed = require('../styling/gif_embed.json');
+
 var sfw = [
-	'https://giphy.com/gifs/MjcUR7bHAVHgs',
-	'https://giphy.com/gifs/Y40wzs3h2MbiU',
-	'https://giphy.com/gifs/meatspin-2g3OncDkX56JW'
+	'https://media.giphy.com/media/MjcUR7bHAVHgs/giphy.gif',
+	'https://media.giphy.com/media/Y40wzs3h2MbiU/giphy.gif',
+	'https://media0.giphy.com/media/2g3OncDkX56JW/giphy.gif'
 ]
 var nsfw = [
 	'https://m.popkey.co/eb36ff/K9o50.gif'
 ]
+
+
 module.exports = {
 	command: 'meatspin',
 	aliases: ['ms'],
@@ -16,13 +20,25 @@ module.exports = {
 		if(bot.channels[channelID].nsfw || bot.channels[channelID].name.includes('nsfw')){
 			bot.sendMessage({
 				to: channelID,
-				message: nsfw[Math.floor(Math.random() * nsfw.length)]
+				embed: {
+					title: 'Meatspin',
+					color: embed.color,
+					image: {
+						url: nsfw[Math.floor(Math.random() * nsfw.length)]
+					}
+				}
 			})
 		}
 		else{
 			bot.sendMessage({
 				to: channelID,
-				message: sfw[Math.floor(Math.random() * sfw.length)]
+				embed: {
+					title: 'Meatspin',
+					color: embed.color,
+					image: {
+						url: sfw[Math.floor(Math.random() * sfw.length)]
+					}
+				}
 			})
 		}
 	}
