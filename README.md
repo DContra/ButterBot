@@ -12,8 +12,11 @@ A small, easily maintainable bot using [Discord.io](https://github.com/Woor/disc
 
 #### Installing
 run `npm i` int he project to get all dependencies
+
 add `auth.json` file to root directory
+
 place the following in `auth.json`
+
 ```javascript
 {
    "token": "your bot token"
