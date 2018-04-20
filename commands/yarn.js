@@ -27,7 +27,7 @@ module.exports = {
 					bot.sendMessage({
 						to: channelID,
 						embed: {
-							title: `Yarn results for "${args.join(' ')}"`,
+							title: `Yarn result for "${args.join(' ')}"`,
 							color: embed.color,
 							image: {
 								url: 'https://y.yarn.co/' + results[0] + '_text_hi.gif'
