@@ -19,7 +19,8 @@ place the following in `auth.json`
 
 ```javascript
 {
-   "token": "your bot token"
+   "token": "your bot token",
+   "giphy_key": "your giphy.com API key"
 }
 
 ```
