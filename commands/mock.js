@@ -5,10 +5,23 @@ module.exports = {
 	description: 'Change text to the form of the Spongebob Meme.',
 	usage: 'mock <text>',
 	execute: (bot, user, userID, channelID, args, event) => {
-		bot.sendMessage({
-            to: channelID,
-            message: memeify(args.join(' '))
-        });
+		if(args[0] != undefined){
+			bot.sendMessage({
+				to: channelID,
+				message: memeify(args.join(' '))
+			})
+		}
+		else{
+			bot.getMessages({
+				channelID: channelID,
+				limit: 2
+			}, (err, res)=>{
+				bot.sendMessage({
+					to: channelID,
+					message: memeify(res[1].content)
+				})
+			})
+		}
 	}
 };
 
