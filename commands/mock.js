@@ -3,7 +3,7 @@ module.exports = {
 	aliases: [],
 	category: 'Fun',
 	description: 'Change text to the form of the Spongebob Meme.',
-	usage: 'mock <text>',
+	usage: 'mock <text> || if no text is given, will mock last message in channel',
 	execute: (bot, user, userID, channelID, args, event) => {
 		if(args[0] != undefined){
 			bot.sendMessage({
