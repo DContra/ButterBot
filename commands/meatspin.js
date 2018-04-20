@@ -6,7 +6,8 @@ var sfw = [
 	'https://media0.giphy.com/media/2g3OncDkX56JW/giphy.gif'
 ]
 var nsfw = [
-	'https://m.popkey.co/eb36ff/K9o50.gif'
+	'https://m.popkey.co/eb36ff/K9o50.gif',
+	'https://media.giphy.com/media/l0HlwdSAQwCRpz3Yk/giphy.gif'
 ]
 
 
