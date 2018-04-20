@@ -6,7 +6,7 @@ var url  ='https://api.giphy.com/v1/gifs/search?api_key=HQDEdAFnjAAalAUoirO6qcqQ
 
 module.exports = {
 	command: 'gif',
-	aliases: [],
+	aliases: ['giph', 'giphy'],
 	category: 'Fun',
 	description: 'Get a gif from giphy!',
 	usage: 'gif <search terms>',
