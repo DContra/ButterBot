@@ -11,6 +11,13 @@ module.exports = {
 	description: 'Get a gif from giphy!',
 	usage: 'gif <search terms>',
 	execute: (bot, user, userID, channelID, args, event) => {
+        if(auth.giphy_key == undefined){
+            bot.sendMessage({
+                to: channelID,
+                message: 'Gif is not configured yet! Please contact whoever is in charge of managing me to have them configure gifs!'
+            })
+            return;
+        }
         let data = '';
 
         var options = {
