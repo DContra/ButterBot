@@ -9,7 +9,6 @@ module.exports = {
 			channelID: channelID,
 			limit: 2
 		}, (err, res)=>{
-
 				bot.sendMessage({
 					to: channelID,
 					message: args[0] != undefined ? memeify(args.join(' ')):memeify(res[1].content)

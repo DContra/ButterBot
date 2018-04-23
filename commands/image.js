@@ -3,26 +3,26 @@ var auth = require('../auth.json');
 var embed = require('../styling/gif_embed.json');
 
 module.exports = {
-	command: 'gif',
-	aliases: ['giph', 'giphy'],
+	command: 'image',
+	aliases: [],
 	category: 'Fun',
-	description: 'Get a gif from giphy!',
-	usage: 'gif <search terms>',
+	description: 'Get an image from google!',
+	usage: 'image <search terms>',
 	execute: (bot, user, userID, channelID, args, event) => {
-        if(auth.giphy_key == undefined){
+        if(auth.google_api_key == undefined || auth.google_cse_id == undefined){
             bot.sendMessage({
                 to: channelID,
-                message: 'Gif is not configured yet! Please contact whoever is in charge of managing me to have them configure gifs!'
+                message: 'Image is not configured yet! Please contact whoever is in charge of managing me to have them configure images'
             })
             return;
         }
         let data = '';
 
         var options = {
-            hostname: 'api.giphy.com',
+            hostname: 'www.googleapis.com',
             port: 443,
             Method: 'GET',
-            path: `/v1/gifs/search?api_key=${auth.giphy_key}&q=${escape(args.join(' '))}&limit=1&offset=0&rating=R&lang=en`
+            path: `/customsearch/v1?q=${escape(args.join(' '))}&cx=${auth.google_cse_id}&key=${auth.google_api_key}&num=1&searchType=image`
         }
 
         https.get(options, (res)=>{
@@ -38,13 +38,11 @@ module.exports = {
                     to: channelID,
                     embed:{
                         author:{
-                            name: 'Giphy - ' + args.join(' '),
-                            icon_url: 'http://78.media.tumblr.com/b508813ce2f04b27f1a6597ded1de623/tumblr_mrsdao4gWV1s5e5bko1_500.gif'
+                            name: 'Google - ' + args.join(' ')
                         },
-                        description: `[Click here to view in browser](${data.data[0].url})`,
                         color: embed.color,
                         image: {
-                            url: data.data[0].images.original.url
+                            url: data.items[0].image.thumbnailLink
                         }
                     }
                 })
