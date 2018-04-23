@@ -5,40 +5,33 @@ module.exports = {
 	description: 'Change text to the form of the Spongebob Meme.',
 	usage: 'mock <text> || if no text is given, will mock last message in channel',
 	execute: (bot, user, userID, channelID, args, event) => {
-		if(args[0] != undefined){
-			bot.sendMessage({
-				to: channelID,
-				message: memeify(args.join(' '))
-			})
-		}
-		else{
-			bot.getMessages({
-				channelID: channelID,
-				limit: 2
-			}, (err, res)=>{
+		bot.getMessages({
+			channelID: channelID,
+			limit: 2
+		}, (err, res)=>{
+
 				bot.sendMessage({
 					to: channelID,
-					message: memeify(res[1].content)
+					message: args[0] != undefined ? memeify(args.join(' ')):memeify(res[1].content)
+				}, ()=>{
+					bot.deleteMessage({
+						channelID: channelID,
+						messageID: res[0].id
+					})
 				})
 			})
-		}
 	}
 };
 
-function memeify(str, base = 3){ //str is the string to memeify, base is the number we use to randomly change the casing of the letter
-	str = str.split('').map(function(x){ //split the string into an array. then map
-    //Get a random intiger between 0 and 99
+function memeify(str, base = 3){
+	str = str.split('').map(function(x){
 		ran = Math.floor(Math.random()*100);
-    
-    //If the random integer is perfectly divisible by our base
 		if(ran % base == 0){
-      //Change our value to uppercase
 			return x.toUpperCase();
 		}
 		else{
-      //Other wise it stays lower
 			return x.toLowerCase();
 			}
-	}).join(''); // Join the string back together
-	return str; // return it
+	}).join('');
+	return str;
 }
