@@ -42,7 +42,7 @@ module.exports = {
                         },
                         color: embed.color,
                         image: {
-                            url: data.items[0].image.link
+                            url: data.items[0].link
                         }
                     }
                 })
