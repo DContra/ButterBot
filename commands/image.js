@@ -25,7 +25,7 @@ module.exports = {
             path: `/customsearch/v1?q=${escape(args.join(' '))}&cx=${auth.google_cse_id}&key=${auth.google_api_key}&num=1&searchType=image`
         }
         
-        if(!bot.channels[channelID].nsfw || !bot.channels[channelID].name.includes('nsfw')) options.path+='&safe=medium';
+        if(!bot.channels[channelID].nsfw || !bot.channels[channelID].name.includes('nsfw')) options.path+='&safe=high';
 
         https.get(options, (res)=>{
             res.setEncoding("utf8");
