@@ -25,7 +25,7 @@ module.exports = {
             path: `/customsearch/v1?q=${escape(args.join(' '))}&cx=${auth.google_cse_id}&key=${auth.google_api_key}&num=1&searchType=image`
         }
         
-        if(!bot.channels[channelID].nsfw || !bot.channels[channelID].name.includes('nsfw')) options.path+='&safe=high';
+        if(!bot.channels[channelID].nsfw && !bot.channels[channelID].name.includes('nsfw')) options.path+='&safe=high';
 
         https.get(options, (res)=>{
             res.setEncoding("utf8");
@@ -36,6 +36,13 @@ module.exports = {
 
             res.on('end', ()=>{
                 data = JSON.parse(data);
+                if(data.items == undefined){
+                    bot.sendMessage({
+                        to: channelID,
+                        message: 'No image results found for \"' + args.join(' ') + '\"'
+                    })
+                    return;
+                }
                 bot.sendMessage({
                     to: channelID,
                     embed:{
