@@ -38,7 +38,7 @@ module.exports = {
 									result.headline = elem.children[0].data;
 								} else if (elem.attribs.itemprop != null && elem.attribs.itemprop == 'name') {
 									//This is the name
-									result.name = elem.children[0].data;
+									result.name == undefined ? result.name = elem.children[0].data : result.name += ' - ' + elem.children[0].data;
 								}
 							});
 							bot.sendMessage({
