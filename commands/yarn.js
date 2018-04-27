@@ -9,7 +9,8 @@ module.exports = {
 	description: 'Get a short gif of a movie quote!',
 	usage: 'yarn <Quote to search for>',
 	execute: (bot, user, userID, channelID, args, event) => {
-		let results = [];
+		let resultUrls = [];
+		let result = {};
 		const options = {
 			uri: `https://getyarn.io/yarn-find?text=${escape(args.join(' '))}`,
 			transform: function (body) {
@@ -20,20 +21,43 @@ module.exports = {
 			.then(($) => {
 				$('a').each(function (i, elem) {
 					if ($(elem)['0'].attribs.href.startsWith('/yarn-clip/')) {
-						results.push($(elem)['0'].attribs.href.substr(11, $(elem)['0'].attribs.href.length))
+						resultUrls.push($(elem)['0'].attribs.href)
 					}
 				});
-				if (results.length != 0) {
-					bot.sendMessage({
-						to: channelID,
-						embed: {
-							title: `Yarn result for "${args.join(' ')}"`,
-							color: embed.color,
-							image: {
-								url: 'https://y.yarn.co/' + results[0] + '_text_hi.gif'
-							}
-						}
-					});
+				if (resultUrls.length != 0) {
+
+					options.uri = `https://getyarn.io${resultUrls[0]}`
+
+					result.url = 'https://y.yarn.co/' + resultUrls[0].substr(11, resultUrls[0].length) + '_text_hi.gif';
+
+					rp(options)
+						.then(($) => {
+							$('b').each(function (i, elem) {
+								if (elem.attribs.itemprop != null && elem.attribs.itemprop == 'headline') {
+									//This is the headline
+									result.headline = elem.children[0].data;
+								} else if (elem.attribs.itemprop != null && elem.attribs.itemprop == 'name') {
+									//This is the name
+									result.name = elem.children[0].data;
+								}
+							});
+							bot.sendMessage({
+								to:channelID,
+								embed: {
+									color: embed.color,
+									title: result.headline,
+									url: options.uri,
+									description: result.name,
+									image:{
+										url: result.url
+									}
+								}
+							})
+						})
+						.catch((err) => {
+							console.log(err);
+						});
+
 				} else {
 					bot.sendMessage({
 						to: channelID,
