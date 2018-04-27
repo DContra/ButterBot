@@ -20,7 +20,9 @@ place the following in `auth.json`
 ```javascript
 {
    "token": "your bot token",
-   "giphy_key": "your giphy.com API key"
+   "giphy_key": "your giphy.com API key",
+   "google_cse_id": "Your google CSE ID",
+   "google_api_key": "Your Google API key"
 }
 
 ```
