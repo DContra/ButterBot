@@ -29,6 +29,14 @@ bot.on('disconnect', function (errMsg, code) {
 });
 
 bot.on('message', (user, userID, channelID, message, event) => {
+    let muted = require('./data/muted.json')
+    if(muted[userID] == true){
+        bot.deleteMessage({
+            channelID:channelID,
+            messageID:event.d.id
+        })
+        return
+    }
     if (message.startsWith('.')) {
         message = message.substr(1, message.length);
         var args = message.split(' ');
