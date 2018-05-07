@@ -25,7 +25,6 @@ module.exports = {
 
             res.on('end', ()=>{
                 data = JSON.parse(data);
-                console.log(data)
                 bot.sendMessage({
                     to: channelID,
                     embed: {
