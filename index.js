@@ -34,6 +34,7 @@ bot.on('message', (user, userID, channelID, message, event) => {
         var args = message.split(' ');
         var cmd = args[0].toLowerCase();
         args.shift();
+        args = args.filter(x=>{return x!=''});
 
         //If the command being called is for the list of commands
         if(cmd == 'commands'){
