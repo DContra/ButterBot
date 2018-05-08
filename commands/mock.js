@@ -9,7 +9,13 @@ module.exports = {
 	description: 'Change text to the form of the Spongebob Meme.',
 	usage: 'mock <text> || if no text is given, will mock last message in channel',
 	execute: (bot, user, userID, channelID, args, event) => {
-
+		if(auth.imgflip == undefined || auth.imgflip.user == undefined || auth.imgflip.pass == undefined){
+			bot.sendMessage({
+				to: channelID,
+				message: 'Imgflip api is not configured yet! please ask the manager of this bot to configure it!'
+			})
+			return
+		}
 
 
 		bot.getMessages({
