@@ -28,7 +28,7 @@ module.exports = {
                 return (b.thumbs_up-b.thumbs_down) - (a.thumbs_up-a.thumbs_down);
             })
             embed.title = args.join(' ');
-            embed.description = body.list[0].definition;
+            embed.description = body.list[0].definition.substr(0,1990);
             embed.url = body.list[0].permalink;
             embed.fields = [
                 {
