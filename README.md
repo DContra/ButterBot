@@ -13,20 +13,23 @@ A small, easily maintainable bot using [Discord.io](https://github.com/Woor/disc
 #### Installing
 run `npm i` int he project to get all dependencies
 
-add `auth.json` file to root directory
-
-place the following in `auth.json`
+fill the following information in `auth.json`
 
 ```javascript
 {
-   "token": "your bot token",
-   "giphy_key": "your giphy.com API key",
-   "google_cse_id": "Your google CSE ID",
-   "google_api_key": "Your Google API key"
-}
+    "bot_token": "",
+    "giphy_key": "",
+    "google":{
+        "cse_id": "",
+        "api_key": ""
+    },
+    "imgflip":{
+        "user": "",
+        "pass": ""
+    }
+ }
 
 ```
-where `your bot token` is the token of your bot recieved by discord
 
 #### Running
 use `node index.js` to start the bot
