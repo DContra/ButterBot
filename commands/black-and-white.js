@@ -31,7 +31,7 @@ module.exports = {
                 for (var n = 0; n < image.bitmap.width; n++) { // for each column in image
                     var color = jimp.intToRGBA(image.getPixelColor(n, i))
                     var luma = 0.2989 * color.r + 0.5870 * color.g + 0.1140 * color.b;
-                    if(color.a < 255) console.log('woah')
+                    
                     if (luma > 105) { //convert to white
                         image.setPixelColor(white, n, i)
                     } else { //convert to black
